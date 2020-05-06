@@ -1,46 +1,35 @@
 <style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
+  .graphs-grid {
+    --graphs-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: grid;
+    grid-template-columns: var(--graphs-columns);
+    gap: 25px;
+  }
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
+  .card {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12),
+      0 0.0625rem 0.125rem rgba(15, 14, 14, 0.24);
+    color: #000;
+    padding: 25px;
+  }
 
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
+  .main-graph {
+    grid-column: 1 / -1;
+    margin-top: 50px;
+  }
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+  <title>Aquarium</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<div class="graphs-grid">
+  <div class="main-graph card">Hello there</div>
 
-<figure>
-	<img alt='Success Kid' src='successkid.jpg'>
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
-
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+  <div class="parameter card">Of Course</div>
+  <div class="parameter card">Of Course</div>
+  <div class="parameter card">Of Course</div>
+  <div class="parameter card">Of Course</div>
+</div>

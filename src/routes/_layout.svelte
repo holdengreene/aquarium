@@ -1,22 +1,18 @@
-<script>
-	import Nav from '../components/Nav.svelte';
-
-	export let segment;
-</script>
-
 <style>
-	main {
-		position: relative;
-		max-width: 56em;
-		background-color: white;
-		padding: 2em;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
+  main {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+	grid-template-areas: '. content .';
+	color: #f9f9f9;
+  }
+
+  .content {
+	  grid-area: content;
+  }
 </style>
 
-<Nav {segment}/>
-
 <main>
-	<slot></slot>
+  <div class="content">
+    <slot />
+  </div>
 </main>
