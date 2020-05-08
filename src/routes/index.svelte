@@ -4,9 +4,13 @@
 
   const EVERYTHING = gql`
     {
-      parameter {
+      tank {
         id
-        name
+        parameters {
+          name
+          value
+          date_tested
+        }
       }
     }
   `;
@@ -16,20 +20,22 @@
       cache: await client.query({
         query: EVERYTHING
       })
-    }
+    };
   }
 </script>
 
 <script>
   import Card from "../components/Card.svelte";
+  import MainChart from "../components/MainChart.svelte";
+  import Parameter from "../components/Parameter.svelte";
 
-  import {setClient, restore, query} from 'svelte-apollo';
+  import { setClient, restore, query } from "svelte-apollo";
 
   export let cache;
 
   restore(client, EVERYTHING, cache.data);
 
-  const parameters = query(client, {query: EVERYTHING});
+  const tank = query(client, { query: EVERYTHING });
 </script>
 
 <style>
@@ -37,6 +43,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
+    margin-top: 25px;
   }
 </style>
 
@@ -44,21 +51,24 @@
   <title>Aquarium</title>
 </svelte:head>
 
-{#await $parameters}
-  Loading...
-{:then result}
-  {#each result.data.parameter as parameter}
-    {parameter.name}
-  {/each}
-{:catch error}
-  Error: {error}
-{/await}
-
 <div class="graphs-grid">
-  <Card fullSize>Hello there</Card>
 
-  <Card>Of Course</Card>
-  <Card>Of Course</Card>
-  <Card>Of Course</Card>
-  <Card>Of Course</Card>
+  {#await $tank}
+    <h1>Loading...</h1>
+
+  {:then result}
+    <Card fullSize>
+      <MainChart tankData={result.data.tank} />
+    </Card>
+
+    {#each result.data.tank[0].parameters as parameter}
+      <Card>
+        <Parameter name={parameter.name} value={parameter.value} />
+      </Card>
+    {/each}
+
+  {:catch error}
+    Error: {error}
+  {/await}
+
 </div>
