@@ -1,25 +1,17 @@
 <script>
-  // Cleanup everything
-
-  import { onMount, beforeUpdate, onDestroy } from "svelte";
+  import { onMount, afterUpdate, onDestroy } from "svelte";
   import { Chart } from "frappe-charts/dist/frappe-charts.esm.js";
   import "frappe-charts/dist/frappe-charts.min.css";
 
   export let tankData;
 
-  let selectedParameter = "Nitrate";
+  let availableParameters = tankData[0].availableParameters;
+  let selectedParameter = availableParameters[0].name;
   let chart;
   let chartRef;
-  let availableParameters = [];
   let data = {};
 
   const parameters = tankData[0].parameters;
-
-  if (parameters) {
-    availableParameters = [
-      ...new Set(parameters.map(parameter => parameter.name))
-    ];
-  }
 
   $: if (parameters) {
     const selectedParameterValue = parameters
@@ -28,8 +20,7 @@
 
     const selectedParameterDate = parameters
       .filter(parameter => parameter.name === selectedParameter)
-      .map(parameter => new Date(parameter.date_tested).toLocaleDateString())
-      .sort();
+      .map(parameter => new Date(parameter.date_tested).toLocaleDateString());
 
     data = {
       labels: [...selectedParameterDate],
@@ -53,7 +44,7 @@
     });
   });
 
-  beforeUpdate(() => chart && chart.update(data));
+  afterUpdate(() => chart && chart.update(data));
 
   onDestroy(() => (chart = null));
 
@@ -71,9 +62,9 @@
 <div class="chart" bind:this={chartRef} />
 {#if availableParameters}
   <p>Currently Selected: {selectedParameter}</p>
-  {#each availableParameters as parameter}
-    <button on:click={() => changeParameter(parameter)}>
-      {parameter}
+  {#each availableParameters as parameter (parameter.id)}
+    <button on:click={() => changeParameter(parameter.name)}>
+      {parameter.name}
     </button>
   {/each}
 {/if}

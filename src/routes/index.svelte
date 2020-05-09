@@ -6,11 +6,15 @@
     {
       tank {
         id
-        parameters {
+        parameters(order_by: { date_tested: asc }) {
           id
           name
           value
           date_tested
+        }
+        availableParameters: parameters(distinct_on: name) {
+          id
+          name
         }
       }
     }
@@ -29,7 +33,7 @@
   import Card from "../components/Card.svelte";
   import Parameter from "../components/Parameter.svelte";
   import MainChart from "../components/MainChart.svelte";
-  
+
   import { setClient, restore, query } from "svelte-apollo";
 
   export let cache;
