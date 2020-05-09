@@ -7,6 +7,7 @@
       tank {
         id
         parameters {
+          id
           name
           value
           date_tested
@@ -26,9 +27,9 @@
 
 <script>
   import Card from "../components/Card.svelte";
-  import MainChart from "../components/MainChart.svelte";
   import Parameter from "../components/Parameter.svelte";
-
+  import MainChart from "../components/MainChart.svelte";
+  
   import { setClient, restore, query } from "svelte-apollo";
 
   export let cache;
@@ -61,9 +62,12 @@
       <MainChart tankData={result.data.tank} />
     </Card>
 
-    {#each result.data.tank[0].parameters as parameter}
+    {#each result.data.tank[0].parameters as parameter (parameter.id)}
       <Card>
-        <Parameter name={parameter.name} value={parameter.value} />
+        <Parameter
+          name={parameter.name}
+          value={parameter.value}
+          date={parameter.date_tested} />
       </Card>
     {/each}
 
