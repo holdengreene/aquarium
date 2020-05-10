@@ -12,7 +12,10 @@
           value
           date_tested
         }
-        availableParameters: parameters(distinct_on: name, order_by: {name: desc, date_tested: desc}) {
+        availableParameters: parameters(
+          distinct_on: name
+          order_by: { name: desc, date_tested: desc }
+        ) {
           id
           name
           value
@@ -70,10 +73,12 @@
 
     {#each result.data.tank[0].availableParameters as parameter (parameter.id)}
       <Card>
-        <Parameter
-          name={parameter.name}
-          value={parameter.value}
-          date={parameter.date_tested} />
+        <a rel="prefetch" href={`/${parameter.name}`}>
+          <Parameter
+            name={parameter.name}
+            value={parameter.value}
+            date={parameter.date_tested} />
+        </a>
       </Card>
     {/each}
 
