@@ -30,6 +30,8 @@
 </script>
 
 <script>
+  import { stores } from "@sapper/app";
+
   import { setClient, restore, query } from "svelte-apollo";
 
   export let cache;
@@ -37,20 +39,55 @@
   restore(client, EVERYTHING, cache.data);
 
   const parameter = query(client, { query: EVERYTHING });
+
+  const { page } = stores();
+  const { parameter: parameterName } = $page.params;
 </script>
+
+<style>
+  h1 {
+  }
+
+  table {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: collapse;
+  }
+
+  td,
+  th {
+    border: 1px solid #000;
+    padding: 5px;
+  }
+
+  th {
+    text-align: left;
+  }
+</style>
+
+<h1>{parameterName} Test Results</h1>
 
 {#await $parameter}
   Loading...
 {:then result}
-  <ul>
-    {#each result.data.tank[0].parameters as test (test.id)}
-      <li>
-        <h1>{test.name}</h1>
-        <h2>{test.value}</h2>
-        <h3>{new Date(test.date_tested).toLocaleDateString()}</h3>
-      </li>
-    {/each}
-  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Date Tested</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {#each result.data.tank[0].parameters as test (test.id)}
+        <tr>
+          <td>{test.value}</td>
+          <td>{new Date(test.date_tested).toLocaleDateString()}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
 
 {:catch error}
   <h2>{error}</h2>

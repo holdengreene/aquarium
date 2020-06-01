@@ -55,6 +55,10 @@
     gap: 25px;
     margin-top: 25px;
   }
+
+  .parameter-link {
+    text-decoration: none;
+  }
 </style>
 
 <svelte:head>
@@ -72,14 +76,14 @@
     </Card>
 
     {#each result.data.tank[0].availableParameters as parameter (parameter.id)}
-      <Card>
-        <a rel="prefetch" href={`/${parameter.name}`}>
+      <a class="parameter-link" rel="prefetch" href={`/${parameter.name}`}>
+        <Card>
           <Parameter
             name={parameter.name}
             value={parameter.value}
             date={parameter.date_tested} />
-        </a>
-      </Card>
+        </Card>
+      </a>
     {/each}
 
   {:catch error}
