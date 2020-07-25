@@ -29,6 +29,7 @@
   }
 
   .popup {
+    position: relative;
     background-color: #fff;
     min-height: 400px;
     width: 60%;
