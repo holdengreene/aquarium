@@ -10,6 +10,7 @@
     color: var(--font-color);
     background-color: var(--primary-background);
     min-height: 100vh;
+    padding: 50px 0;
   }
 
   .content {

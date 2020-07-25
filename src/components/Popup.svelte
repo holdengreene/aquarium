@@ -30,7 +30,7 @@
 
   .popup {
     position: relative;
-    background-color: #fff;
+    background-color: var(--card-background);
     min-height: 400px;
     width: 60%;
     box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12),

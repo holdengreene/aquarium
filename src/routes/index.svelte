@@ -40,6 +40,7 @@
   import MainChart from "../components/MainChart.svelte";
   import Popup from "../components/Popup.svelte";
   import CreateParameter from "../components/CreateParameter.svelte";
+  import Loader from "../components/Loader.svelte";
 
   import { restore, query } from "svelte-apollo";
 
@@ -76,16 +77,16 @@
   Create Parameter
 </button>
 
-<Popup {open} on:close={() => (open = false)}>
-  <CreateParameter on:refetch={refetch} />
-</Popup>
-
 <div class="graphs-grid">
 
   {#await $tank}
-    <h1>Loading...</h1>
+    <Loader loading />
 
   {:then result}
+    <Popup {open} on:close={() => (open = false)}>
+      <CreateParameter on:refetch={refetch} tankData={result.data.tank} />
+    </Popup>
+
     <Card fullSize>
       <MainChart tankData={result.data.tank} />
     </Card>

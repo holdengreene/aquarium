@@ -24,7 +24,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #5cdb95;
+    background-color: var(--splash-color);
     opacity: 0.6;
     position: absolute;
     top: 0;

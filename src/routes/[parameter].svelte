@@ -23,16 +23,17 @@
 
     return {
       cache: await client.query({
-        query: EVERYTHING
-      })
+        query: EVERYTHING,
+      }),
     };
   }
 </script>
 
 <script>
   import { stores } from "@sapper/app";
-
   import { setClient, restore, query } from "svelte-apollo";
+
+  import Loader from "../components/Loader.svelte";
 
   export let cache;
 
@@ -45,9 +46,6 @@
 </script>
 
 <style>
-  h1 {
-  }
-
   table {
     width: 100%;
     background-color: #fff;
@@ -68,7 +66,7 @@
 <h1>{parameterName} Test Results</h1>
 
 {#await $parameter}
-  Loading...
+  <Loader loading />
 {:then result}
 
   <table>

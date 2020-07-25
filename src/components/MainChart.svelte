@@ -5,7 +5,7 @@
 
   export let tankData;
 
-  let availableParameters = tankData[0].availableParameters;
+  let { availableParameters } = tankData[0];
   let selectedParameter = availableParameters[0].name;
   let chart;
   let chartRef;
