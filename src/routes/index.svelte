@@ -28,8 +28,8 @@
   export async function preload() {
     return {
       cache: await client.query({
-        query: EVERYTHING
-      })
+        query: EVERYTHING,
+      }),
     };
   }
 </script>
@@ -38,10 +38,13 @@
   import Card from "../components/Card.svelte";
   import Parameter from "../components/Parameter.svelte";
   import MainChart from "../components/MainChart.svelte";
+  import Popup from "../components/Popup.svelte";
+  import CreateParameter from "../components/CreateParameter.svelte";
 
   import { setClient, restore, query } from "svelte-apollo";
 
   export let cache;
+  let open;
 
   restore(client, EVERYTHING, cache.data);
 
@@ -64,6 +67,14 @@
 <svelte:head>
   <title>Aquarium</title>
 </svelte:head>
+
+<button class="create-parameter" on:click={() => (open = true)}>
+  Create Parameter
+</button>
+
+<Popup {open} on:close={() => (open = false)}>
+  <CreateParameter />
+</Popup>
 
 <div class="graphs-grid">
 
