@@ -41,7 +41,7 @@
   import Popup from "../components/Popup.svelte";
   import CreateParameter from "../components/CreateParameter.svelte";
 
-  import { setClient, restore, query } from "svelte-apollo";
+  import { restore, query } from "svelte-apollo";
 
   export let cache;
   let open;
@@ -49,6 +49,10 @@
   restore(client, EVERYTHING, cache.data);
 
   const tank = query(client, { query: EVERYTHING });
+
+  function refetch() {
+    tank.refetch();
+  }
 </script>
 
 <style>
@@ -73,7 +77,7 @@
 </button>
 
 <Popup {open} on:close={() => (open = false)}>
-  <CreateParameter />
+  <CreateParameter on:refetch={refetch} />
 </Popup>
 
 <div class="graphs-grid">
