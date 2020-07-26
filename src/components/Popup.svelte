@@ -29,6 +29,9 @@
   }
 
   .popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
     background-color: var(--card-background);
     min-height: 400px;

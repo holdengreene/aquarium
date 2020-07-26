@@ -85,6 +85,7 @@
   }
 
   .parameter-submit {
+    cursor: pointer;
     background-color: var(--splash-color);
     border: none;
     justify-self: flex-start;
