@@ -37,9 +37,10 @@
   import Loader from "../components/Loader.svelte";
   import Popup from "../components/Popup.svelte";
   import DeleteParameter from "../components/DeleteParameter.svelte";
+  import Icon from "../components/Icon.svelte";
+  import Icons from "../components/Icons.svelte";
 
   export let cache;
-  let editing;
   let openDelete;
   let testId;
 
@@ -77,10 +78,6 @@
     gap: 20px;
   }
 
-  .edit-button {
-    justify-self: end;
-  }
-
   table {
     width: 100%;
     background-color: #fff;
@@ -109,14 +106,17 @@
     position: absolute;
     right: 10px;
   }
+
+  .modification-station button {
+    background-color: transparent;
+    padding-right: 1px;
+  }
 </style>
+
+<Icons />
 
 <div class="p-grid">
   <h1>{parameterName} Test Results</h1>
-
-  <button class="edit-button" on:click={() => (editing = !editing)}>
-    {editing ? 'Stop Editing' : 'Edit'}
-  </button>
 
   {#await $parameter}
     <Loader loading />
@@ -135,16 +135,16 @@
           <tr>
             <td>{test.value}</td>
             <td>
-              <div class:editing>
+              <div class="editing">
                 {new Date(test.date_tested).toLocaleDateString()}
-                {#if editing}
-                  <div class="modification-station">
-                    <button>Edit</button>
-                    <button on:click={() => beginDelete(test.id)}>
-                      Delete
-                    </button>
-                  </div>
-                {/if}
+                <div class="modification-station">
+                  <button>
+                    <Icon name="pencil" />
+                  </button>
+                  <button on:click={() => beginDelete(test.id)}>
+                    <Icon name="trash" />
+                  </button>
+                </div>
               </div>
             </td>
           </tr>

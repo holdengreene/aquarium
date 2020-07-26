@@ -1,5 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import Icon from "../components/Icon.svelte";
+  import Icons from "../components/Icons.svelte";
 
   export let open = false;
 
@@ -52,8 +54,12 @@
   }
 </style>
 
+<Icons />
+
 <div class="popup-overlay" class:open>
-  <button type="button" class="close-btn" on:click={closePopup}>X</button>
+  <button type="button" class="close-btn" on:click={closePopup}>
+    <Icon name="close" size="62" />
+  </button>
   <div class="popup">
     <slot />
   </div>

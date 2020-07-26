@@ -37,13 +37,6 @@
     text-align: center;
   }
 
-  button {
-    cursor: pointer;
-    border: none;
-    padding: 5px 20px;
-    font-size: 18px;
-  }
-
   .delete {
     background-color: red;
     border: none;
