@@ -9,13 +9,13 @@
 
   const DELETE_TEST = gql`
     mutation DeleteTest($testId: bigint!) {
-      delete_parameter(where: { id: { _eq: $testId } }) {
+      delete_test(where: { id: { _eq: $testId } }) {
         affected_rows
       }
     }
   `;
 
-  async function deleteParameter() {
+  async function deleteTest() {
     try {
       await client.mutate({
         mutation: DELETE_TEST,
@@ -60,7 +60,7 @@
   <h2>Confirm Delete</h2>
 
   <div class="button-flex">
-    <button class="delete" on:click={deleteParameter}>Delete Parameter</button>
+    <button class="delete" on:click={deleteTest}>Delete Test</button>
     <button class="cancel" on:click={() => dispatch('cancel')}>Cancel</button>
   </div>
 </div>

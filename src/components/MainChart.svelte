@@ -5,22 +5,22 @@
 
   export let tankData;
 
-  let { availableParameters } = tankData[0];
-  let selectedParameter = availableParameters[0].name;
+  let { availableTests } = tankData[0];
+  let selectedParameter = availableTests[0].parameter;
   let chart;
   let chartRef;
   let data = {};
 
-  const parameters = tankData[0].parameters;
+  const { tests } = tankData[0];
 
-  $: if (parameters) {
-    const selectedParameterValue = parameters
-      .filter((parameter) => parameter.name === selectedParameter)
-      .map((parameter) => parameter.value);
+  $: if (tests) {
+    const selectedParameterValue = tests
+      .filter((test) => test.parameter === selectedParameter)
+      .map((test) => test.value);
 
-    const selectedParameterDate = parameters
-      .filter((parameter) => parameter.name === selectedParameter)
-      .map((parameter) => new Date(parameter.date_tested).toLocaleDateString());
+    const selectedParameterDate = tests
+      .filter((test) => test.parameter === selectedParameter)
+      .map((test) => new Date(test.date_tested).toLocaleDateString());
 
     data = {
       labels: [...selectedParameterDate],
@@ -73,7 +73,7 @@
   }
 </style>
 
-{#if availableParameters}
+{#if availableTests}
   <div class="chart-top">
     <h2>{selectedParameter}</h2>
 
@@ -82,8 +82,8 @@
       name="parameter"
       id="parameter"
       bind:value={selectedParameter}>
-      {#each availableParameters as parameter (parameter.id)}
-        <option value={parameter.name}>{parameter.name}</option>
+      {#each availableTests as parameter (parameter.id)}
+        <option value={parameter.parameter}>{parameter.parameter}</option>
       {/each}
     </select>
 

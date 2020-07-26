@@ -6,18 +6,18 @@
     {
       tank {
         id
-        parameters(order_by: { date_tested: asc }) {
+        tests(order_by: { date_tested: asc }) {
           id
-          name
+          parameter
           value
           date_tested
         }
-        availableParameters: parameters(
-          distinct_on: name
-          order_by: { name: desc, date_tested: desc }
+        availableTests: tests(
+          distinct_on: parameter
+          order_by: { parameter: desc, date_tested: desc }
         ) {
           id
-          name
+          parameter
           value
           date_tested
         }
@@ -91,11 +91,11 @@
       <MainChart tankData={result.data.tank} />
     </Card>
 
-    {#each result.data.tank[0].availableParameters as parameter (parameter.id)}
-      <a class="parameter-link" rel="prefetch" href={`/${parameter.name}`}>
+    {#each result.data.tank[0].availableTests as parameter (parameter.id)}
+      <a class="parameter-link" rel="prefetch" href={`/${parameter.parameter}`}>
         <Card>
           <Parameter
-            name={parameter.name}
+            name={parameter.parameter}
             value={parameter.value}
             date={parameter.date_tested} />
         </Card>

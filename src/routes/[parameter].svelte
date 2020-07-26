@@ -6,9 +6,9 @@
     query TankQuery($parameter: String!) {
       tank {
         id
-        parameters(where: { name: { _eq: $parameter } }) {
+        tests(where: { parameter: { _eq: $parameter } }) {
           id
-          name
+          parameter
           value
           date_tested
         }
@@ -136,12 +136,12 @@
       </thead>
 
       <tbody>
-        {#each result.data.tank[0].parameters as test (test.id)}
+        {#each result.data.tank[0].tests as test (test.id)}
           <tr>
             <td>{test.value}</td>
             <td>
               <div class:editing>
-                {new Date(test.date_tested).toLocaleDateString()} - {test.id}
+                {new Date(test.date_tested).toLocaleDateString()}
                 {#if editing}
                   <div class="modification-station">
                     <button>Edit</button>

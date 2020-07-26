@@ -8,7 +8,7 @@
   export let tankData;
 
   const dispatch = createEventDispatcher();
-  let { availableParameters } = tankData[0];
+  let { availableTests } = tankData[0];
   let parameterName;
   let parameterNameText;
   let parameterValue;
@@ -19,10 +19,14 @@
       $parameterName: String!
       $parameterValue: String!
     ) {
-      insert_parameter_one(
-        object: { name: $parameterName, tank_id: 1, value: $parameterValue }
+      insert_test_one(
+        object: {
+          parameter: $parameterName
+          tank_id: 1
+          value: $parameterValue
+        }
       ) {
-        name
+        parameter
         tank_id
         value
       }
@@ -100,20 +104,20 @@
 
       <div class="input-wrap">
         <label for="p-name">Parameter Name</label>
-        {#if availableParameters}
+        {#if availableTests.length > 0}
           <select
             class="parameter-select"
             name="parameterName"
             id="p-name"
             bind:value={parameterName}>
-            {#each availableParameters as parameter (parameter.id)}
-              <option value={parameter.name}>{parameter.name}</option>
+            {#each availableTests as parameter (parameter.id)}
+              <option value={parameter.parameter}>{parameter.parameter}</option>
             {/each}
             <option value="add-new">Add New</option>
           </select>
         {/if}
 
-        {#if !availableParameters || parameterName === 'add-new'}
+        {#if !availableTests || parameterName === 'add-new'}
           <input
             type="text"
             class="parameter-text"
