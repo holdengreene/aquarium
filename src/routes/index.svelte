@@ -42,10 +42,10 @@
   import CreateParameter from "../components/CreateParameter.svelte";
   import Loader from "../components/Loader.svelte";
 
+  import { popup } from "../lib/store";
   import { restore, query } from "svelte-apollo";
 
   export let cache;
-  let open;
 
   restore(client, EVERYTHING, cache.data);
 
@@ -73,7 +73,7 @@
   <title>Aquarium</title>
 </svelte:head>
 
-<button class="create-parameter" on:click={() => (open = true)}>
+<button class="create-parameter" on:click={() => popup.open()}>
   Create Parameter
 </button>
 
@@ -83,7 +83,7 @@
     <Loader loading />
 
   {:then result}
-    <Popup {open} on:close={() => (open = false)}>
+    <Popup>
       <CreateParameter on:refetch={refetch} tankData={result.data.tank} />
     </Popup>
 

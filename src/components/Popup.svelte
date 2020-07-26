@@ -1,14 +1,11 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { popup } from "../lib/store";
+
   import Icon from "../components/Icon.svelte";
   import Icons from "../components/Icons.svelte";
 
-  export let open = false;
-
-  const dispatch = createEventDispatcher();
-
-  function closePopup() {
-    dispatch("close");
+  export function closePopup() {
+    popup.close();
   }
 </script>
 
@@ -56,7 +53,7 @@
 
 <Icons />
 
-<div class="popup-overlay" class:open>
+<div class="popup-overlay{$popup ? ' open' : ''}">
   <button type="button" class="close-btn" on:click={closePopup}>
     <Icon name="close" size="62" />
   </button>

@@ -32,6 +32,7 @@
 
 <script>
   import { stores } from "@sapper/app";
+  import { popup } from "../lib/store";
   import { restore, query } from "svelte-apollo";
 
   import Loader from "../components/Loader.svelte";
@@ -41,7 +42,8 @@
   import Icons from "../components/Icons.svelte";
 
   export let cache;
-  let openDelete;
+  let deleting;
+  let editing;
   let testId;
 
   restore(client, EVERYTHING, cache.data);
@@ -57,12 +59,19 @@
   });
 
   function beginDelete(passedTestId) {
-    openDelete = true;
+    popup.open();
+    deleting = true;
+    testId = `${passedTestId}`;
+  }
+
+  function beginEditing(passedTestId) {
+    popup.open();
+    editing = true;
     testId = `${passedTestId}`;
   }
 
   function closePopup() {
-    openDelete = false;
+    popup.close();
   }
 
   function refetch() {
@@ -113,6 +122,10 @@
   }
 </style>
 
+<svelte:head>
+  <title>{parameterName} Tests</title>
+</svelte:head>
+
 <Icons />
 
 <div class="p-grid">
@@ -152,8 +165,8 @@
       </tbody>
     </table>
 
-    <Popup open={openDelete} on:close={closePopup}>
-      {#if openDelete}
+    <Popup>
+      {#if deleting}
         <DeleteParameter {testId} on:refetch={refetch} on:cancel={closePopup} />
       {/if}
     </Popup>
