@@ -1,5 +1,6 @@
 <script>
   import { popup } from "../lib/store";
+  import { fade } from "svelte/transition";
 
   import Icon from "../components/Icon.svelte";
   import Icons from "../components/Icons.svelte";
@@ -11,7 +12,7 @@
 
 <style>
   .popup-overlay {
-    display: none;
+    display: flex;
     background-color: rgba(165, 140, 140, 0.3);
     z-index: 10;
     position: absolute;
@@ -21,10 +22,6 @@
     top: 0;
     justify-content: center;
     align-items: center;
-  }
-
-  .open {
-    display: flex;
   }
 
   .popup {
@@ -51,13 +48,15 @@
   }
 </style>
 
-<Icons />
+{#if $popup}
+  <Icons />
 
-<div class="popup-overlay{$popup ? ' open' : ''}">
-  <button type="button" class="close-btn" on:click={closePopup}>
-    <Icon name="close" size="62" />
-  </button>
-  <div class="popup">
-    <slot />
+  <div class="popup-overlay" transition:fade={{ duration: 250 }}>
+    <button type="button" class="close-btn" on:click={closePopup}>
+      <Icon name="close" size="62" />
+    </button>
+    <div class="popup">
+      <slot />
+    </div>
   </div>
-</div>
+{/if}
