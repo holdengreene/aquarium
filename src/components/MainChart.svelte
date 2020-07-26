@@ -50,10 +50,6 @@
 </script>
 
 <style>
-  h2 {
-    font-size: 34px;
-  }
-
   .chart {
     width: 100%;
   }

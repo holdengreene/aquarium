@@ -1,11 +1,17 @@
 <script>
-    export let name;
-    export let value;
-    export let date;
+  export let name;
+  export let value;
+  export let date;
 
-    const formattedDate = new Date(date);
+  const formattedDate = new Date(date).toLocaleDateString();
 </script>
+
+<style>
+  h2 {
+    font-weight: 600;
+  }
+</style>
 
 <h2>{name}</h2>
 <p>{value}</p>
-<p>{formattedDate.toLocaleDateString()}</p>
+<p>{formattedDate}</p>

@@ -79,11 +79,6 @@
 
   .edit-button {
     justify-self: end;
-    font-size: 18px;
-    background-color: var(--splash-color);
-    border: 0;
-    padding: 5px 30px;
-    cursor: pointer;
   }
 
   table {

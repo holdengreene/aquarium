@@ -79,19 +79,7 @@
     margin-top: 20px;
   }
 
-  label {
-    font-size: 20px;
-  }
-
-  input {
-    padding: 10px;
-    font-size: 18px;
-  }
-
   .parameter-submit {
-    cursor: pointer;
-    background-color: var(--splash-color);
-    border: none;
     justify-self: flex-start;
     font-size: 30px;
     padding: 5px 45px;
