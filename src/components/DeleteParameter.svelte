@@ -1,19 +1,11 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import client from "../lib/apollo";
-  import { gql } from "apollo-boost";
+  import { DELETE_TEST } from "../graphql/mutations";
 
   export let testId;
 
   const dispatch = createEventDispatcher();
-
-  const DELETE_TEST = gql`
-    mutation DeleteTest($testId: bigint!) {
-      delete_test(where: { id: { _eq: $testId } }) {
-        affected_rows
-      }
-    }
-  `;
 
   async function deleteTest() {
     try {

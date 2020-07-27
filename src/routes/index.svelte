@@ -1,34 +1,11 @@
 <script context="module">
   import client from "../lib/apollo";
-  import { gql } from "apollo-boost";
-
-  const EVERYTHING = gql`
-    {
-      tank {
-        id
-        tests(order_by: { date_tested: asc }) {
-          id
-          parameter
-          value
-          date_tested
-        }
-        availableTests: tests(
-          distinct_on: parameter
-          order_by: { parameter: desc, date_tested: desc }
-        ) {
-          id
-          parameter
-          value
-          date_tested
-        }
-      }
-    }
-  `;
+  import { ALL_TESTS } from "../graphql/queries";
 
   export async function preload() {
     return {
       cache: await client.query({
-        query: EVERYTHING,
+        query: ALL_TESTS,
       }),
     };
   }
@@ -51,9 +28,9 @@
   export let cache;
   let addingState;
 
-  restore(client, EVERYTHING, cache.data);
+  restore(client, ALL_TESTS, cache.data);
 
-  const tank = query(client, { query: EVERYTHING });
+  const tank = query(client, { query: ALL_TESTS });
 
   function refetch() {
     tank.refetch();
@@ -114,7 +91,7 @@
       {#if addingState === 'test'}
         <AddTest on:refetch={refetch} tankData={result.data.tank} />
       {:else if addingState === 'parameter'}
-        <AddParameter on:refetch={refetch} tankData={result.data.tank} />
+        <AddParameter on:refetch={refetch} />
       {/if}
     </Popup>
 
@@ -134,7 +111,7 @@
     {/each}
 
     <button class="add-parameter" on:click={addParameter}>
-      <Icon name="plus" size="64" fill="currentColor" />
+      <Icon name="plus" size="64" />
       Add Parameter
     </button>
 

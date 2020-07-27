@@ -1,27 +1,13 @@
 <script context="module">
   import client from "../lib/apollo";
-  import { gql } from "apollo-boost";
-
-  let EVERYTHING = gql`
-    query TankQuery($parameter: String!) {
-      tank {
-        id
-        tests(where: { parameter: { _eq: $parameter } }) {
-          id
-          parameter
-          value
-          date_tested
-        }
-      }
-    }
-  `;
+  import { PARAMETER_TESTS } from "../graphql/queries";
 
   export async function preload(page) {
     const { parameter } = page.params;
 
     return {
       cache: await client.query({
-        query: EVERYTHING,
+        query: PARAMETER_TESTS,
         variables: {
           parameter,
         },
@@ -46,13 +32,13 @@
   let editing;
   let testId;
 
-  restore(client, EVERYTHING, cache.data);
+  restore(client, PARAMETER_TESTS, cache.data);
 
   const { page } = stores();
   const { parameter: parameterName } = $page.params;
 
   const parameter = query(client, {
-    query: EVERYTHING,
+    query: PARAMETER_TESTS,
     variables: {
       parameter: parameterName,
     },
@@ -76,7 +62,7 @@
 
   function refetch() {
     parameter.refetch();
-    openDelete = false;
+    popup.close();
   }
 </script>
 

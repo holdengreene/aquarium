@@ -1,6 +1,6 @@
 <script>
   import client from "../lib/apollo";
-  import { gql } from "apollo-boost";
+  import { INSERT_PARAMETER } from "../graphql/mutations";
   import { createEventDispatcher } from "svelte";
 
   import Loader from "../components/Loader.svelte";
@@ -13,25 +13,6 @@
   let parameterNameText;
   let parameterValue;
   let submitting;
-
-  const INSERT_PARAMETER = gql`
-    mutation Insert_Parameter(
-      $parameterName: String!
-      $parameterValue: String!
-    ) {
-      insert_test_one(
-        object: {
-          parameter: $parameterName
-          tank_id: 1
-          value: $parameterValue
-        }
-      ) {
-        parameter
-        tank_id
-        value
-      }
-    }
-  `;
 
   async function insertParameter() {
     try {
@@ -73,10 +54,6 @@
   .parameter-select {
     font-size: 20px;
     padding: 5px 30px;
-  }
-
-  .parameter-text {
-    margin-top: 20px;
   }
 
   .parameter-submit {
