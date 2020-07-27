@@ -1,12 +1,13 @@
 <script>
-export let fullSize = false;
+  export let fullSize = false;
 </script>
 
 <style>
   div {
     display: flex;
     flex-direction: column;
-    place-items: center;
+    justify-content: center;
+    align-items: center;
     background-color: var(--card-background);
     border-radius: 3px;
     box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12),
@@ -16,10 +17,10 @@ export let fullSize = false;
   }
 
   .fullSize {
-      grid-column: 1 / -1;
+    grid-column: 1 / -1;
   }
 </style>
 
 <div class:fullSize>
-    <slot></slot>
+  <slot />
 </div>

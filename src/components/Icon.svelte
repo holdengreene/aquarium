@@ -17,10 +17,6 @@
     fill: none;
     transition: stroke 0.3s ease;
   }
-
-  .icon:hover {
-    stroke: var(--splash-color-hover);
-  }
 </style>
 
 <svg class="icon" width={size} height={size}>

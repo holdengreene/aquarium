@@ -6,6 +6,8 @@
   nav {
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
+    background-color: var(--splash-color);
+    padding: 25px 0;
   }
 
   a {

@@ -5,12 +5,8 @@
 
   import Loader from "../components/Loader.svelte";
 
-  export let tankData;
-
   const dispatch = createEventDispatcher();
-  let { availableTests } = tankData[0];
   let parameterName;
-  let parameterNameText;
   let parameterValue;
   let submitting;
 
@@ -39,7 +35,7 @@
       await client.mutate({
         mutation: INSERT_PARAMETER,
         variables: {
-          parameterName: parameterNameText ?? parameterName,
+          parameterName: parameterName,
           parameterValue,
         },
       });
@@ -70,11 +66,6 @@
     flex-direction: column;
   }
 
-  .parameter-select {
-    font-size: 20px;
-    padding: 5px 30px;
-  }
-
   .parameter-text {
     margin-top: 20px;
   }
@@ -92,26 +83,12 @@
 
       <div class="input-wrap">
         <label for="p-name">Parameter Name</label>
-        {#if availableTests.length > 0}
-          <select
-            class="parameter-select"
-            name="parameterName"
-            id="p-name"
-            bind:value={parameterName}>
-            {#each availableTests as parameter (parameter.id)}
-              <option value={parameter.parameter}>{parameter.parameter}</option>
-            {/each}
-            <option value="add-new">Add New</option>
-          </select>
-        {/if}
 
-        {#if !availableTests || parameterName === 'add-new'}
-          <input
-            type="text"
-            class="parameter-text"
-            name="parameterName"
-            bind:value={parameterNameText} />
-        {/if}
+        <input
+          type="text"
+          class="parameter-text"
+          name="parameterName"
+          bind:value={parameterName} />
       </div>
 
       <div class="input-wrap">
